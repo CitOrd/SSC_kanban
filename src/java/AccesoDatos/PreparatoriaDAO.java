@@ -7,6 +7,7 @@ package AccesoDatos;
 
 import Dominio.Preparatoria;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -16,7 +17,11 @@ public class PreparatoriaDAO extends BaseDAO<Preparatoria> {
 
     @Override
     public void agregar(Preparatoria entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager entityManager = this.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(entidad);
+        entityManager.getTransaction().commit();
+        System.out.println("Se agregó la preparatoria");
     }
 
     @Override
