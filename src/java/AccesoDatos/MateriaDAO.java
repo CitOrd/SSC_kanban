@@ -5,7 +5,7 @@
  */
 package AccesoDatos;
 
-import Dominio.Preparatoria;
+import Dominio.Materia;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,10 +16,10 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author Citlali Orduño
  */
-public class PreparatoriaDAO extends BaseDAO<Preparatoria> {
+public class MateriaDAO extends BaseDAO<Materia>{
 
     @Override
-    public void agregar(Preparatoria entidad) {
+    public void agregar(Materia entidad) {
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(entidad);
@@ -29,70 +29,70 @@ public class PreparatoriaDAO extends BaseDAO<Preparatoria> {
 
     @Override
     public void eliminar(Long id) {
-        EntityManager entityManager = this.createEntityManager();
+         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
-        Preparatoria preparatoria = entityManager.find(Preparatoria.class, id);
-        if (preparatoria != null) {
-            entityManager.remove(preparatoria);
+        Materia materia = entityManager.find(Materia.class, id);
+        if (materia != null) {
+            entityManager.remove(materia);
         }
         entityManager.getTransaction().commit();
     }
 
-    
     @Override
-    public void actualizar(Preparatoria entidad) {
+    public void actualizar(Materia entidad) {
          EntityManager entityManager = this.createEntityManager();
          entityManager.getTransaction().begin();
-         Preparatoria preparatoria = entityManager.find(Preparatoria.class, entidad.getId());
-        if (preparatoria != null) {
+         Materia materia = entityManager.find(Materia.class, entidad.getId());
+        if (materia != null) {
            
-            preparatoria.setNombre(entidad.getNombre());
-            preparatoria.setImagen(entidad.getImagen());
-            preparatoria.setClave(entidad.getClave());
-
-            entityManager.merge(preparatoria);
+            materia.setTitulo(entidad.getTitulo());
+            materia.setIdSemestre(entidad.getIdSemestre());
+            materia.setClave(entidad.getClave());
+            
+            entityManager.merge(materia);
         }
         entityManager.getTransaction().commit();
+        
     }
 
     @Override
-    public ArrayList<Preparatoria> consultarTodos() {
+    public ArrayList<Materia> consultarTodos() {
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
         
         CriteriaQuery criteria = entityManager.getCriteriaBuilder().createQuery();
-        criteria.select(criteria.from(Preparatoria.class));
+        criteria.select(criteria.from(Materia.class));
         Query query = entityManager.createQuery(criteria);
-        List<Preparatoria> preparatorias = query.getResultList();
+        List<Materia> materias = query.getResultList();
         
         entityManager.getTransaction().commit();
-        return new ArrayList<>(preparatorias);
+        return new ArrayList<>(materias);
     }
 
     @Override
-    public Preparatoria buscarPorId(long id) {
+    public Materia buscarPorId(long id) {
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
-        Preparatoria preparatoria = entityManager.find(Preparatoria.class, id);
+        Materia materia = entityManager.find(Materia.class, id);
         entityManager.getTransaction().commit();
-        return preparatoria;
+        return materia;
     }
     
-     public ArrayList<Preparatoria> consultarPorNombre(String nombre){
+     public ArrayList<Materia> consultarPorTitulo(String titulo){
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
-        List<Preparatoria> preparatorias;
-        if (!nombre.equals("")) {
+        List<Materia> materias;
+        if (!titulo.equals("")) {
            
-            String jpql = String.format("SELECT * FROM scc.preparatorias WHERE scc.preparatorias.nombre LIKE '%%"+nombre+"%%'");
-            preparatorias = entityManager.createNativeQuery(jpql, Preparatoria.class).getResultList();
+            String jpql = String.format("SELECT * FROM scc.materias WHERE scc.materias.titulo LIKE '%%"+titulo+"%%'");
+            materias = entityManager.createNativeQuery(jpql, Materia.class).getResultList();
         } else {
-            String jpql = "SELECT * FROM scc.preparatorias";
-            preparatorias = entityManager.createNativeQuery(jpql, Preparatoria.class).getResultList();
+            String jpql = "SELECT * FROM scc.materias";
+            materias = entityManager.createNativeQuery(jpql, Materia.class).getResultList();
         }
         entityManager.getTransaction().commit();
 
-        return new ArrayList<>(preparatorias);
+        return new ArrayList<>(materias);
     }
-     
+    
 }
