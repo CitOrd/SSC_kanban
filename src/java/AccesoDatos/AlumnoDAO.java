@@ -5,7 +5,7 @@
  */
 package AccesoDatos;
 
-import Dominio.PlanEstudio;
+import Dominio.Alumno;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,79 +16,82 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author Citlali Orduño
  */
-public class PlanEstudioDAO extends BaseDAO<PlanEstudio>{
+public class AlumnoDAO extends BaseDAO<Alumno> {
 
     @Override
-    public void agregar(PlanEstudio entidad) {
+    public void agregar(Alumno entidad) {
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(entidad);
         entityManager.getTransaction().commit();
-        System.out.println("Se agregó el plan de estudio");
+        System.out.println("Se agregó el alumno");
     }
 
     @Override
     public void eliminar(Long id) {
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
-        PlanEstudio planEstudio = entityManager.find(PlanEstudio.class, id);
-        if (planEstudio != null) {
-            entityManager.remove(planEstudio);
+        Alumno alumno = entityManager.find(Alumno.class, id);
+        if (alumno != null) {
+            entityManager.remove(alumno);
         }
         entityManager.getTransaction().commit();
+        
     }
 
     @Override
-    public void actualizar(PlanEstudio entidad) {
+    public void actualizar(Alumno entidad) {
         EntityManager entityManager = this.createEntityManager();
          entityManager.getTransaction().begin();
-        PlanEstudio planEstudio  = entityManager.find(PlanEstudio.class, entidad.getId());
-        if (planEstudio != null) {
+         Alumno alumno = entityManager.find(Alumno.class, entidad.getId());
+        if (alumno != null) {
            
-                planEstudio.setTitulo(entidad.getTitulo());
-                entityManager.merge(planEstudio);
+            alumno.setNombre(entidad.getNombre());
+            alumno.setPreparatoria(entidad.getPreparatoria());
+            alumno.setCalificaciones(entidad.getCalificaciones());
+
+            entityManager.merge(alumno);
         }
         entityManager.getTransaction().commit();
     }
 
     @Override
-    public ArrayList<PlanEstudio> consultarTodos() {
-         EntityManager entityManager = this.createEntityManager();
+    public ArrayList<Alumno> consultarTodos() {
+        EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
         
         CriteriaQuery criteria = entityManager.getCriteriaBuilder().createQuery();
-        criteria.select(criteria.from(PlanEstudio.class));
+        criteria.select(criteria.from(Alumno.class));
         Query query = entityManager.createQuery(criteria);
-        List<PlanEstudio> planesEstudio = query.getResultList();
+        List<Alumno> alumno = query.getResultList();
         
         entityManager.getTransaction().commit();
-        return new ArrayList<>(planesEstudio);
+        return new ArrayList<>(alumno);
     }
 
     @Override
-    public PlanEstudio buscarPorId(long id) {
+    public Alumno buscarPorId(long id) {
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
-        PlanEstudio planEstudio = entityManager.find(PlanEstudio.class, id);
+        Alumno alumno = entityManager.find(Alumno.class, id);
         entityManager.getTransaction().commit();
-        return planEstudio;
+        return alumno;
     }
     
-     public ArrayList<PlanEstudio> consultarPorNombre(String titulo){
+     public ArrayList<Alumno> consultarPorNombre(String nombre){
         EntityManager entityManager = this.createEntityManager();
         entityManager.getTransaction().begin();
-        List<PlanEstudio> planesEstudio;
-        if (!titulo.equals("")) {
+        List<Alumno> alumnos;
+        if (!nombre.equals("")) {
            
-            String jpql = String.format("SELECT * FROM scc.planesEstudio WHERE scc.planesEstudio.titulo LIKE '%%"+titulo+"%%'");
-            planesEstudio = entityManager.createNativeQuery(jpql, PlanEstudio.class).getResultList();
+            String jpql = String.format("SELECT * FROM scc.alumnos WHERE scc.alumnos.nombre LIKE '%%"+nombre+"%%'");
+            alumnos = entityManager.createNativeQuery(jpql, Alumno.class).getResultList();
         } else {
             String jpql = "SELECT * FROM scc.preparatorias";
-            planesEstudio = entityManager.createNativeQuery(jpql, PlanEstudio.class).getResultList();
+            alumnos = entityManager.createNativeQuery(jpql, Alumno.class).getResultList();
         }
         entityManager.getTransaction().commit();
 
-        return new ArrayList<>(planesEstudio);
+        return new ArrayList<>(alumnos);
     }
-    
 }
