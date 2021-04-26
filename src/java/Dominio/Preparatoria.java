@@ -30,7 +30,7 @@ public class Preparatoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idPreparatoria")
-    private Integer id;
+    private Long id;
     @Column(name="nombre")
     private String nombre;
     @Column(name="clave")
@@ -46,7 +46,7 @@ public class Preparatoria implements Serializable {
     }
     
     
-    public Preparatoria(Integer id, String nombre, String clave, byte[] imagen) {
+    public Preparatoria(Long id, String nombre, String clave, byte[] imagen) {
         this.id = id;
         this.nombre = nombre;
         this.clave = clave;
@@ -83,11 +83,11 @@ public class Preparatoria implements Serializable {
     }
 
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
