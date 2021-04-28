@@ -5,39 +5,17 @@
  */
 package Dominio;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 /**
  *
- * @author Citlali Orduño
+ * @author 
  */
-@Entity
-@Table(name="materias")
-public class Materia implements Serializable {
+public class Materia{
 
     //atributos
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="titulo")
     private String titulo;
-    @Column(name="clave")
     private int clave;
-    @ManyToOne(optional= false)
-    @JoinColumn(name= "idSemestre")
     private Semestre idSemestre;
-    
-    @OneToOne(optional= false)
-    private Calificacion calf;
 
     
     //constructores

@@ -5,32 +5,17 @@
  */
 package Dominio;
 
-import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * Clase que representa la tabla Semestre en la base de datos
  * @author Citlali Orduño
  */
-@Entity
-@Table(name= "semestres")
-public class Semestre implements Serializable {
+public class Semestre{
 
     //atributos
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="numSemestre")
     private int numSemestre;
-    @OneToMany(mappedBy = "materia", cascade = CascadeType.ALL)
     private List<Materia> materias;
 
     //constructores

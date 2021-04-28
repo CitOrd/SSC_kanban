@@ -5,41 +5,18 @@
  */
 package Dominio;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
  *
- * @author Citlali Orduño
+ * @author 
  */
-@Entity
-@Table( name= "capturistas")
-public class Capturista implements Serializable {
+public class Capturista{
 
     
-    @Id
-    @Column(name= "idCapturista")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    
-    @Column(name= "nombre")
     private String nombre;
-    
-    @Column(name= "usuario")
     private String usuario;
-    
-    @Column(name= "contraseña")
     private String contraseña;
-    
-    @ManyToOne(optional= false)
-    @JoinColumn(name= "idPreparatoria")
     private Preparatoria idPreparatoria;
 
     public Capturista() {

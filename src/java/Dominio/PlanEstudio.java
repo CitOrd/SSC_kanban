@@ -22,24 +22,13 @@ import javax.persistence.Table;
  * Clase que representa la tabla Planes de estudio de la base de datos
  * @author Citlali Orduño
  */
-@Entity
-@Table(name= "planesEstudio")
 public class PlanEstudio implements Serializable {
 
     //Atributos
-    @Id
-    @Column(name= "idPlanEstudio")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name= "titulo")
-    private String titulo;
-   
-            
-    @ManyToOne(optional= false)
-    @JoinColumn(name= "idPreparatoria")        
-    private Preparatoria idPreparatoria;
     
-    @OneToMany(mappedBy = "semestre", cascade = CascadeType.ALL)
+    private Long id;
+    private String titulo;      
+    private Preparatoria idPreparatoria;
     private List<RelPlanSem> relSemestres;
 
     //Constructores

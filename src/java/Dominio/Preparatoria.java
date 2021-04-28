@@ -5,40 +5,21 @@
  */
 package Dominio;
 
-import java.io.Serializable;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
- * @author Citlali Orduño
+ * @author 
  */
-@Table(name = "preparatorias")
-@Entity
-public class Preparatoria implements Serializable {
+public class Preparatoria{
 
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idPreparatoria")
     private Long id;
-    @Column(name="nombre")
     private String nombre;
-    @Column(name="clave")
     private String clave;
-    @Column(name="idPreparatoria")
-    private byte[] imagen;
-    
-    @OneToMany(mappedBy = "capturista", cascade = CascadeType.ALL)
+    private Blob imagen;
     private List<Capturista> capturistas;
 
     public Preparatoria() {
@@ -46,7 +27,7 @@ public class Preparatoria implements Serializable {
     }
     
     
-    public Preparatoria(Long id, String nombre, String clave, byte[] imagen) {
+    public Preparatoria(Long id, String nombre, String clave, Blob imagen) {
         this.id = id;
         this.nombre = nombre;
         this.clave = clave;
@@ -74,11 +55,11 @@ public class Preparatoria implements Serializable {
         this.clave = clave;
     }
 
-    public byte[] getImagen() {
+    public Blob getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(Blob imagen) {
         this.imagen = imagen;
     }
 
@@ -124,6 +105,10 @@ public class Preparatoria implements Serializable {
     @Override
     public String toString() {
         return "Dominio.Preparatoria[ id=" + id + " ]";
+    }
+
+    public void setId(int id) {       
+      this.id = (long) id;
     }
     
 }

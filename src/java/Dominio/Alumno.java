@@ -5,37 +5,18 @@
  */
 package Dominio;
 
-import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 /**
  *
- * @author Citlali Orduño
+ * @author 
  */
-@Entity
-@Table(name="alumnos")
-public class Alumno implements Serializable {
+public class Alumno{
 
    
-    @Id
-   
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long id;
-    @Column(name="nombre")
     private String nombre;
-    @JoinColumn(name="idPreparatoria")
     private Preparatoria preparatoria;
-    //private boolean certificado;
-    @OneToMany(mappedBy = "calificacion", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;       
 
     public Alumno() {
