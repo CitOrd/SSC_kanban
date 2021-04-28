@@ -26,6 +26,13 @@ public class Preparatoria{
     public Preparatoria() {
         this.capturistas= new ArrayList<>();
     }
+
+    public Preparatoria(int id, String nombre, String clave, String imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.clave = clave;
+        this.imagen = imagen;
+    }
     
     
     public Preparatoria(int id, String nombre,String responsable, String clave, String imagen) {
@@ -41,6 +48,13 @@ public class Preparatoria{
         this.clave = clave;
         this.imagen = imagen;
     }
+    
+     public Preparatoria(String nombre,String responsable, String clave) {
+        this.nombre = nombre;
+        this.responsable = responsable;
+        this.clave = clave;
+    }
+
 
     public String getResponsable() {
         return responsable;
@@ -50,12 +64,7 @@ public class Preparatoria{
         this.responsable = responsable;
     }
 
-    public Preparatoria(String nombre,String responsable, String clave) {
-        this.nombre = nombre;
-        this.responsable = responsable;
-        this.clave = clave;
-    }
-
+   
     public String getNombre() {
         return nombre;
     }

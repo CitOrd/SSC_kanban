@@ -17,7 +17,9 @@ public class PreparatoriaControl extends BaseControl<Preparatoria> {
 
     PreparatoriaDAO prepDao;
 
-    public PreparatoriaControl(PreparatoriaDAO prepDao) {
+    
+    
+    public PreparatoriaControl() {
         this.prepDao = new PreparatoriaDAO();
     }
 
