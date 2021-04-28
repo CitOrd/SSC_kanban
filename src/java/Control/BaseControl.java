@@ -13,12 +13,14 @@ import java.util.ArrayList;
  */
 public abstract class BaseControl<T> {
     
-    
-   public abstract void agregar(T entidad);
-   public abstract void eliminar(T entidad);
-   public abstract void actualizar(T entidad);
-   public abstract T buscarPorID(Long id);
-   public abstract ArrayList<T> consultarTodos(T entidad);
-    
-    
+    public abstract void agregar(T entidad);
+
+    public abstract void eliminar(T entidad);
+
+    public abstract void actualizar(T entidad);
+
+    public abstract ArrayList<T> consultar();
+
+    public abstract T buscarPorId(int id);
+
 }

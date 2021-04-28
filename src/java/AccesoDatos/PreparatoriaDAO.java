@@ -8,14 +8,18 @@ package AccesoDatos;
 import Conexion.Conexion;
 import Dominio.Preparatoria;
 import Dominio.Utilitarios;
-import java.sql.CallableStatement;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,111 +27,120 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PreparatoriaDAO extends BaseDAO<Preparatoria> {
 
-    Connection cn = new Conexion().getCn();
     Utilitarios uti = new Utilitarios();
-    
+
     @Override
     public void agregar(Preparatoria obj) {
-        try{
-            Statement comando= cn.createStatement();
-            String comandoSQL= String.format("INSERT INTO preparatorias(nombre,"
-                    + " clave) VALUES('%d', '%s') ", 
-                    obj.getNombre(),
-                    obj.getClave());
-                    
+        File archivoFoto = new File(obj.getImagen());
+        try {
+            boolean resp = false;
+            FileInputStream convertir_imagen = new FileInputStream(archivoFoto);
+            Connection cn = this.getConexion();
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO ssc.preparatorias VALUES(?,?,?,?)");
+            ps.setInt(1, obj.getId());
+            ps.setString(2, obj.getNombre());
+            ps.setString(3, obj.getClave());
+            ps.setBlob(4, convertir_imagen);
+
+            int i = ps.executeUpdate();
+
+            if (i == 1) {
+                resp = true;
+            } else {
+                resp = false;
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PreparatoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void eliminar(Preparatoria preparatoria) {
+        try {
+            Connection cn = this.getConexion();
+            Statement comando = cn.createStatement();
+            String comandoSQL = String.format("DELETE FROM preparatorias WHERE "
+                    + "idPreparatoria= '%d'", preparatoria.getId());
             comando.executeUpdate(comandoSQL);
-            
-        }catch(SQLException ex){
-            
+            System.out.println("Se elimino correctamente la preparatoria");
+            cn.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+
         }
     }
 
     @Override
-    public boolean eliminar(Long id) {
-       boolean band=false;
+    public void actualizar(Preparatoria obj) {
         try {
-            CallableStatement cs = cn.prepareCall("{call USP_ELIMINARLIBRO(?)}");
-            cs.setLong(1, id);
-            
-            if(cs.executeUpdate()>0)
-                band=true;
-            
-        } catch (Exception ex) {
-            uti.msj(ex.toString(), 0);
+            Connection cn = this.getConexion();
+            Statement comando = cn.createStatement();
+            String comandoSQL = String.format("UPDATE preparatorias SET clave='%s', "
+                    + "nombre='%s', imagen= ? WHERE idPreparatoria = %d",
+                    obj.getNombre(),
+                    obj.getClave(),
+                    obj.getImagen());
+
+            comando.executeUpdate(comandoSQL);
+            System.out.println("Se actualizó la preparatoria");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
-        
-        return band;
     }
 
-    
     @Override
-    public boolean actualizar(Preparatoria obj) {
-         boolean band = false;
+    public ArrayList<Preparatoria> consultar() {
+        ArrayList<Preparatoria> listaPreparatorias = new ArrayList<>();
+
         try {
-            CallableStatement cs = cn.prepareCall("{call USP_ACTUALIZARPREPARATORIA(?,?,?)}");
+            Connection cn = this.getConexion();
+            Statement comando = cn.createStatement();
+            String comandoSQL = String.format("SELECT idPreparatoria, clave, imagen FROM preparatorias");
+            ResultSet resultado = comando.executeQuery(comandoSQL);
 
-            cs.setString(1, obj.getNombre());
-            cs.setString(2, obj.getClave());
-            cs.setBlob(3, obj.getImagen());
-
-            if (cs.executeUpdate() > 0) {
-                band = true;
+            while (resultado.next()) {
+                Integer id = resultado.getInt("idPreparatoria");
+                String nombre = resultado.getString("nombre");
+                String clave = resultado.getString("clave");
+                String imagen = resultado.getString("imagen");
+                Preparatoria preparatoria = new Preparatoria(id, nombre, clave, imagen);
+                listaPreparatorias.add(preparatoria);
             }
-
-        } catch (Exception ex) {
-            uti.msj(ex.toString(), 0);
+            return listaPreparatorias;
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return listaPreparatorias;
         }
-
-        return band;
     }
 
     @Override
-    public DefaultTableModel consultarTodos() {
-        DefaultTableModel mdl = new DefaultTableModel();
-        mdl.addColumn("Codigo");
-        mdl.addColumn("Nombre");
-        mdl.addColumn("Descripción");
-        mdl.addColumn("Autor");
-        mdl.addColumn("Genero");
-        mdl.addColumn("Cantidad");
-        
+    public Preparatoria buscarPorId(int id) {
+        Preparatoria prepa = null;
         try {
-            CallableStatement cs=cn.prepareCall("{call USP_LISTADOPREPARATORIA}");
-            ResultSet rs=cs.executeQuery();
-            
-            while(rs.next()){
-                Object data[]={rs.getString(1),rs.getString(2),
-                               rs.getString(3),rs.getString(4),
-                               rs.getString(5),rs.getString(6)};
-                
-                mdl.addRow(data);
+            Connection cn = this.getConexion();
+            Statement comando = cn.createStatement();
+            String comandoSQL = String.format("SELECT idPreparatoria, clave, imagen FROM preparatorias = %s", id);
+            ResultSet resultado = comando.executeQuery(comandoSQL);
+
+            if (resultado.next()) {
+                int idPrepa = resultado.getInt("idPreparatoria");
+                String nombre = resultado.getString("nombre");
+                String clave = resultado.getString("clave");
+                String imagen = resultado.getString("imagen");
+                prepa = new Preparatoria(idPrepa, nombre, clave, imagen);
+
             }
-            
-        } catch (Exception ex) {
-            uti.msj(ex.toString(), 0);
+            return prepa;
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return prepa;
         }
-        return mdl;
+
     }
 
-    @Override
-    public Preparatoria buscarPorId(long id) {
-        
-    }
-    
-     public ArrayList<Preparatoria> consultarPorNombre(String nombre){
-        
-        List<Preparatoria> preparatorias;
-        if (!nombre.equals("")) {
-           
-            String jpql = String.format("SELECT * FROM scc.preparatorias WHERE scc.preparatorias.nombre LIKE '%%"+nombre+"%%'");
-            preparatorias = ;
-        } else {
-            String jpql = "SELECT * FROM scc.preparatorias";
-            preparatorias = entityManager.createNativeQuery(jpql, Preparatoria.class).getResultList();
-        }
-        entityManager.getTransaction().commit();
-
-        return new ArrayList<>(preparatorias);
-    }
-     
 }

@@ -5,6 +5,10 @@
  */
 package AccesoDatos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,15 +16,23 @@ import javax.swing.table.DefaultTableModel;
  * @author Citlali Orduño
  */
 public abstract class BaseDAO<T> {
-  
+    private static final String CONEXION = "jdbc:mysql://localhost:3306/ssc";
+    private static final String USUARIO = "adminSSC";
+    private static final String PASSWORD = "passwordssc";
+    
+    protected Connection getConexion() throws SQLException {
+        Connection conexion = DriverManager.getConnection(BaseDAO.CONEXION,
+                BaseDAO.USUARIO, BaseDAO.PASSWORD);
+        return conexion;
+    }
      
     public abstract void agregar(T entidad);
     
-    public abstract void eliminar(Long id);
+    public abstract void eliminar(T entidad);
     
     public abstract void actualizar(T entidad);
     
-    public abstract DefaultTableModel consultarTodos();
+    public abstract ArrayList<T> consultar();
     
-    public abstract T buscarPorId(long id);
+    public abstract T buscarPorId(int id);
 }

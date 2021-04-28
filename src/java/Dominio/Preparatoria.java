@@ -16,10 +16,10 @@ import java.util.List;
 public class Preparatoria{
 
     
-    private Long id;
+    private int id;
     private String nombre;
     private String clave;
-    private Blob imagen;
+    private String imagen;
     private List<Capturista> capturistas;
 
     public Preparatoria() {
@@ -27,8 +27,13 @@ public class Preparatoria{
     }
     
     
-    public Preparatoria(Long id, String nombre, String clave, Blob imagen) {
+    public Preparatoria(int id, String nombre, String clave, String imagen) {
         this.id = id;
+        this.nombre = nombre;
+        this.clave = clave;
+        this.imagen = imagen;
+    }
+    public Preparatoria(String nombre, String clave, String imagen) {
         this.nombre = nombre;
         this.clave = clave;
         this.imagen = imagen;
@@ -55,20 +60,20 @@ public class Preparatoria{
         this.clave = clave;
     }
 
-    public Blob getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(Blob imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -79,36 +84,11 @@ public class Preparatoria{
     public void setCapturistas(List<Capturista> capturistas) {
         this.capturistas = capturistas;
     }
-    
-    
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Preparatoria)) {
-            return false;
-        }
-        Preparatoria other = (Preparatoria) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+ 
 
     @Override
     public String toString() {
         return "Dominio.Preparatoria[ id=" + id + " ]";
-    }
-
-    public void setId(int id) {       
-      this.id = (long) id;
     }
     
 }

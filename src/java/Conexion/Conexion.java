@@ -6,7 +6,7 @@
 package Conexion;
 
 
-import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -45,7 +45,7 @@ public class Conexion {
     
     Connection cn = null;
     Utilitarios uti = new Utilitarios();
-    private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static String driver = "com.mysql.jdbc.Driver";
     private static String usuario = "adminSSC";
     private static String password = "passwordssc";
     private static String url = "jdbc:mysql://localhost:3306/ssc";

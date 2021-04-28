@@ -7,6 +7,10 @@ package pruebas;
 
 import AccesoDatos.PreparatoriaDAO;
 import Dominio.Preparatoria;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Blob;
 
 /**
  *
@@ -17,15 +21,13 @@ public class pruebas {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         Preparatoria prepa = new Preparatoria();
         PreparatoriaDAO prepadao = new PreparatoriaDAO();
-        
-        prepa.setId(1312344444);
         prepa.setClave("cara");
         prepa.setNombre("COBACH");
-        
+        prepa.setImagen("C:\\Users\\alexis\\Desktop\\cato.jpg");
         prepadao.agregar(prepa);
         
     }
