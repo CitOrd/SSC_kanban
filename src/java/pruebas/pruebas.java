@@ -27,7 +27,9 @@ public class pruebas {
         PreparatoriaDAO prepadao = new PreparatoriaDAO();
         prepa.setClave("cara");
         prepa.setNombre("COBACH");
+        prepa.setResponsable("Morkecho");
         prepa.setImagen("C:\\Users\\alexis\\Desktop\\cato.jpg");
+        
         prepadao.agregar(prepa);
         
     }

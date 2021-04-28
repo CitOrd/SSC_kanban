@@ -36,11 +36,12 @@ public class PreparatoriaDAO extends BaseDAO<Preparatoria> {
             boolean resp = false;
             FileInputStream convertir_imagen = new FileInputStream(archivoFoto);
             Connection cn = this.getConexion();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO ssc.preparatorias VALUES(?,?,?,?)");
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO ssc.preparatorias VALUES(?,?,?,?,?)");
             ps.setInt(1, obj.getId());
             ps.setString(2, obj.getNombre());
-            ps.setString(3, obj.getClave());
-            ps.setBlob(4, convertir_imagen);
+            ps.setString(3, obj.getResponsable());
+            ps.setString(4, obj.getClave());
+            ps.setBlob(5, convertir_imagen);
 
             int i = ps.executeUpdate();
 

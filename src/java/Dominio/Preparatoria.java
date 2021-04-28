@@ -20,6 +20,7 @@ public class Preparatoria{
     private String nombre;
     private String clave;
     private String imagen;
+    private String responsable;
     private List<Capturista> capturistas;
 
     public Preparatoria() {
@@ -27,20 +28,31 @@ public class Preparatoria{
     }
     
     
-    public Preparatoria(int id, String nombre, String clave, String imagen) {
+    public Preparatoria(int id, String nombre,String responsable, String clave, String imagen) {
         this.id = id;
         this.nombre = nombre;
+        this.responsable = responsable;
         this.clave = clave;
         this.imagen = imagen;
     }
-    public Preparatoria(String nombre, String clave, String imagen) {
+    public Preparatoria(String nombre,String responsable, String clave, String imagen) {
         this.nombre = nombre;
+        this.responsable = responsable;
         this.clave = clave;
         this.imagen = imagen;
     }
 
-    public Preparatoria(String nombre, String clave) {
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public Preparatoria(String nombre,String responsable, String clave) {
         this.nombre = nombre;
+        this.responsable = responsable;
         this.clave = clave;
     }
 
