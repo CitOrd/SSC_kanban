@@ -25,19 +25,18 @@
 		</ul>
 	</div>
 	<main>
-		<form>
+		<form action="AgregarPreparatoria" method="post" name="capturaPreparatoria" >
+                        
 			<h2>Agregar una Preparatoria</h2>
 			<h3>Por favor, llene el formulario para el registro de la preparatoria.</h3>
 			<p>Nombre de la escuela:</p>
-			<input type="text" class="field">
+			<input type="text" id="nombre" class="field">
 			<p>Clave:</p>
-			<input type="text" class="field">
+			<input type="text" id="clave" class="field">
 			<p>Responsable:</p>
-			<input type="text" class="field">
-			<p>Nombre de la escuela:</p>
-			<input type="text" class="field">
+			<input type="text" id="responsable" class="field">
 			<p>Logo:</p>
-			<p class="center-content"><input type="file" class="button-file"></p>
+			<p class="center-content"><input type="file" id="imagen" class="button-file"></p>
 			<p class="center-content"><input type="submit" class="button" value="Registrar Escuela"></p>
 		</form>
 	</main>

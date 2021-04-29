@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * Clase abstracta padre con los metodos a usar en clases hijas para acceder a la BD.
@@ -20,7 +19,8 @@ public abstract class BaseDAO<T> {
     private static final String USUARIO = "adminSSC";
     private static final String PASSWORD = "passwordssc";
     
-    protected Connection getConexion() throws SQLException {
+    protected Connection getConexion() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver"); 
         Connection conexion = DriverManager.getConnection(BaseDAO.CONEXION,
                 BaseDAO.USUARIO, BaseDAO.PASSWORD);
         return conexion;

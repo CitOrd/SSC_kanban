@@ -4,9 +4,17 @@
         <servlet-name>AgregarPreparatoria</servlet-name>
         <servlet-class>acciones.AgregarPreparatoria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Control</servlet-name>
+        <servlet-class>acciones.Control</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AgregarPreparatoria</servlet-name>
         <url-pattern>/AgregarPreparatoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Control</servlet-name>
+        <url-pattern>/Control</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

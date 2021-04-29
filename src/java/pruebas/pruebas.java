@@ -6,11 +6,11 @@
 package pruebas;
 
 import AccesoDatos.PreparatoriaDAO;
+import Control.PreparatoriaControl;
 import Dominio.Preparatoria;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Blob;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -24,14 +24,22 @@ public class pruebas {
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         Preparatoria prepa = new Preparatoria();
+        Preparatoria prepa2 = new Preparatoria();
         PreparatoriaDAO prepadao = new PreparatoriaDAO();
-        prepa.setClave("cara");
+        PreparatoriaControl prepadao2 = new PreparatoriaControl();
+        prepa.setClave("cara35");
         prepa.setNombre("COBACH");
         prepa.setResponsable("Morkecho");
-        prepa.setImagen("C:\\Users\\alexis\\Desktop\\cato.jpg");
-        
-        prepadao.agregar(prepa);
-        
+        prepa.setImagen("C:\\Users\\alexis\\Desktop\\tea.jpg");
+
+        prepa2.setId(1);
+        prepadao2.agregar(prepa);
+        System.out.println(prepadao.buscarPorId(prepa2.getId()));
+//        ArrayList<Preparatoria> lista;
+//        lista = prepadao.consultar();
+//        for (Preparatoria preparatoria : lista) {
+//            System.out.println(preparatoria);
+//        }
     }
-    
+
 }

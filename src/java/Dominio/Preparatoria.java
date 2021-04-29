@@ -11,20 +11,20 @@ import java.util.List;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Preparatoria{
+public class Preparatoria {
 
-    
     private int id;
     private String nombre;
     private String clave;
     private String imagen;
+    private Blob imagen2;
     private String responsable;
     private List<Capturista> capturistas;
 
     public Preparatoria() {
-        this.capturistas= new ArrayList<>();
+        this.capturistas = new ArrayList<>();
     }
 
     public Preparatoria(int id, String nombre, String clave, String imagen) {
@@ -33,28 +33,49 @@ public class Preparatoria{
         this.clave = clave;
         this.imagen = imagen;
     }
-    
-    
-    public Preparatoria(int id, String nombre,String responsable, String clave, String imagen) {
+
+    public Preparatoria(int id, String nombre, String responsable, String clave, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.responsable = responsable;
         this.clave = clave;
         this.imagen = imagen;
     }
-    public Preparatoria(String nombre,String responsable, String clave, String imagen) {
+
+    public Preparatoria(String nombre, String responsable, String clave, String imagen) {
         this.nombre = nombre;
         this.responsable = responsable;
         this.clave = clave;
         this.imagen = imagen;
     }
-    
-     public Preparatoria(String nombre,String responsable, String clave) {
+
+    public Preparatoria(String nombre, String responsable, String clave) {
         this.nombre = nombre;
         this.responsable = responsable;
         this.clave = clave;
     }
 
+    public Preparatoria(int id, String nombre, String clave, Blob imagen2) {
+        this.id = id;
+        this.nombre = nombre;
+        this.clave = clave;
+        this.imagen2 = imagen2;
+    }
+
+    public Preparatoria(int id, String nombre, String responsable, String clave, Blob imagen2) {
+        this.id = id;
+        this.nombre = nombre;
+        this.responsable = responsable;
+        this.clave = clave;
+        this.imagen2 = imagen2;
+    }
+
+    public Preparatoria(String nombre, String responsable, String clave, Blob imagen2) {
+        this.nombre = nombre;
+        this.responsable = responsable;
+        this.clave = clave;
+        this.imagen2 = imagen2;
+    }
 
     public String getResponsable() {
         return responsable;
@@ -64,7 +85,6 @@ public class Preparatoria{
         this.responsable = responsable;
     }
 
-   
     public String getNombre() {
         return nombre;
     }
@@ -89,7 +109,6 @@ public class Preparatoria{
         this.imagen = imagen;
     }
 
-
     public int getId() {
         return id;
     }
@@ -105,11 +124,20 @@ public class Preparatoria{
     public void setCapturistas(List<Capturista> capturistas) {
         this.capturistas = capturistas;
     }
- 
+
+    public Blob getImagen2() {
+        return imagen2;
+    }
+
+    public void setImagen2(Blob imagen2) {
+        this.imagen2 = imagen2;
+    }
 
     @Override
     public String toString() {
-        return "Dominio.Preparatoria[ id=" + id + " ]";
+        return "Preparatoria{" + "id=" + id + ", nombre=" + nombre + ", clave=" + clave + ", imagen2=" + imagen2 + ", responsable=" + responsable + '}';
     }
     
+    
+
 }

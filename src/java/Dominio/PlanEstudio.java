@@ -5,57 +5,39 @@
  */
 package Dominio;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 /**
  * Clase que representa la tabla Planes de estudio de la base de datos
+ *
  * @author Citlali Orduño
  */
-public class PlanEstudio implements Serializable {
+public class PlanEstudio{
 
     //Atributos
-    
-    private Long id;
-    private String titulo;      
+    private int id;
+    private String titulo;
     private Preparatoria idPreparatoria;
-    private List<RelPlanSem> relSemestres;
 
     //Constructores
     public PlanEstudio() {
     }
 
-    public PlanEstudio(Long id, String titulo, Preparatoria idPreparatoria, List<RelPlanSem> relSemestres) {
+    public PlanEstudio(int id, String titulo, Preparatoria idPreparatoria) {
         this.id = id;
         this.titulo = titulo;
         this.idPreparatoria = idPreparatoria;
-        this.relSemestres = relSemestres;
     }
 
-    public PlanEstudio(String titulo, Preparatoria idPreparatoria, List<RelPlanSem> relSemestres) {
+    public PlanEstudio(String titulo, Preparatoria idPreparatoria) {
         this.titulo = titulo;
         this.idPreparatoria = idPreparatoria;
-        this.relSemestres = relSemestres;
     }
 
-   
-    
     //Metodos
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -75,37 +57,11 @@ public class PlanEstudio implements Serializable {
         this.idPreparatoria = idPreparatoria;
     }
 
-    public List<RelPlanSem> getRelSemestres() {
-        return relSemestres;
-    }
-
-    public void setRelSemestres(List<RelPlanSem> relSemestres) {
-        this.relSemestres = relSemestres;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PlanEstudio)) {
-            return false;
-        }
-        PlanEstudio other = (PlanEstudio) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "Dominio.PlanEstudio[ id=" + id + " ]";
+        return "PlanEstudio{" + "id=" + id + ", titulo=" + titulo + ", idPreparatoria=" + idPreparatoria + '}';
     }
+
     
+
 }

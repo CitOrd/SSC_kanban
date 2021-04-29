@@ -5,10 +5,7 @@
  */
 package acciones;
 
-import Control.PreparatoriaControl;
-import Dominio.Preparatoria;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +14,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Citlali Orduño
+ * @author alexis
  */
-public class AgregarPreparatoria extends HttpServlet {
+public class Control extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,28 +29,26 @@ public class AgregarPreparatoria extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = null;
+        response.setContentType("text/html;charset=UTF-8");
+        String tareaSel = request.getParameter("tarea");
 
-        try{
-            Preparatoria preparatoria = new Preparatoria();
+        HttpSession session = request.getSession();
+        String siguiente = null;
 
-            HttpSession session = request.getSession();
+        session.setAttribute("tareaSel", tareaSel);
+        HttpSession sesion = request.getSession();
+        sesion.setAttribute("tareaSel", tareaSel);
 
-            preparatoria.setNombre("nombre");
-            preparatoria.setClave("clave");
-            preparatoria.setResponsable("responsable");
-            preparatoria.setImagen(null);
+        switch (tareaSel) {
+            case "agregaPreparatoria ":
+                siguiente = "RegistrarEscuela.jsp";
+                break;
 
-            PreparatoriaControl ctrlPreparatoria = new PreparatoriaControl();
-            ctrlPreparatoria.agregar(preparatoria);
-
-            session.setAttribute("tareaSel", "RegistrarEscuela");
-
-            rd = request.getRequestDispatcher("RegistrarEscuela");
-        }catch(Exception e){
-            System.out.println(e);
+            default:
+                break;
         }
 
+        request.getRequestDispatcher(siguiente).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
